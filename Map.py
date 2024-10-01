@@ -12,7 +12,7 @@ gameState = {
 
         "Left_Corridor": {
             'Description': 'Entering the left corridor, you feel a chill run down your spine—what secrets lie ahead in the darkness? '
-                           'Something feels wrong in this part of the castle. ',
+                           'Something feels \nwrong in this part of the castle. ',
             'Movements': ['East', 'West'],
             'Exits': ['Entrance_Hall(East)', 'Crypt(West)'],
             'Items': ['anvil'],
@@ -21,8 +21,8 @@ gameState = {
         "Right_Corridor": {'Description': 'The corridor feels damp, with faded tapestries hanging along '
                                           'the stone walls. The ground beneath your feet is uneven, and the sound of clanking metal echoes \n'
                                           'faintly, coming from deeper within the castle. The passage seems to stretch into darkness. ',
-                           'Movements': ['West', 'East', 'South'],
-                           'Exits': ['Entrance_Hall(West)', 'Armory(East)', 'Dungeon(South)'],
+                           'Movements': ['West', 'East'],
+                           'Exits': ['Entrance_Hall(West)', 'Armory(East)'],
                            'Items': ['stone'],
                            'Locked': False},
 
@@ -61,9 +61,8 @@ gameState = {
                   },
 
         "Armory": {'Description': 'Ancient suits of armor, now rusted and broken, line the walls. Broken '
-                                  'weapons are strewn across the floor, and a heavy shield with an inscription \nstands upright at the '
-                                  'far end.'
-                                  'There\'s a riddle carved onto the shield, \nwhich might unlock something valuable.',
+                                  'weapons are strewn across the floor, and a heavy shield with an inscription stands \nupright at the '
+                                  'far end.There\'s a riddle carved onto the shield, which might unlock something valuable.',
                    'Movements': ['West', 'South'],
                    'Exits': ['Right_Corridor(West)', 'Servant_Quarters(South)'],
                    'Items': [],
@@ -97,8 +96,7 @@ gameState = {
 
         "Grand_Ballroom": {'Description': 'This once grand and opulent room is now faded, with tattered '
                                           'curtains and dusty chandeliers swaying slightly as if from a breeze you can’t feel. In the \ncorner '
-                                          'of the room are some scattered ancient "murals". The ballroom feels eerie, as if it holds onto the memories '
-                                          'of the grand parties that once took place \nhere.Something appears to be written on the "wall"',
+                                          'of the room are some scattered ancient "murals" here.Something appears to be written on the "wall"',
                            'wall': '\nThe ballroom has an inscription on the wall that reads:'
                                    '\n"Only by stepping in the rhythm of the stars shall the door to the past open. Solve the puzzle to unlock its secrets."',
                            'Movements': ['South', 'North'],
@@ -142,8 +140,8 @@ gameState = {
             'Locked': True,
             'Unlocked_By': ['bronze key'],
             'Puzzle Reward': ['castle map'],
-            'Puzzle_Help': 'BODYLESS:\n"Nothing in this castle comes for free, especially not from me. You must prove your wit to earn '
-                           'the key. Solve this, and the prize is yours. \nFail, and you’ll remain here, wondering what could have been. (Bodyless gives a wicked laugh)"\n',
+            'Puzzle_Help': 'BODYLESS:\nNothing in this castle comes for free, especially not from me. You must prove your wit to earn '
+                           'the key. Solve this, and the prize is yours. \nFail, and you’ll remain here, wondering what could have been. (Bodyless gives a wicked laugh)\n',
             'Puzzle': {
                 "0": {'Riddle': 'Listen closely, adventurer:\n'
                                 'I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?',
@@ -159,7 +157,7 @@ gameState = {
             'Movements': ['East', 'South', 'West'],
             'Exits': ['Servant_Quarters(East)', 'Hidden_Chamber(South)'],
             'Items': ['goblet'],
-            'Puzzle_Reward': ['blood moon key'],
+            'Puzzle Reward': ['blood moon key'],
             'Locked': True,
             'Unlocked_By': ['cell key'],
             'Puzzle_Help': 'In the center of the chamber lie five pressure plates, each marked with a distinct symbol: '
@@ -200,7 +198,7 @@ gameState = {
                                       'hidden here.',
                        'telescope': 'The telescope is old and covered in a thick layer of dust. Wiping it clean, you notice the lens is still '
                                     'intact, though a bit cloudy from years of neglect. \nIt seems to point toward something beyond the castle walls, but it\'s'
-                                    'hard to make out clearly.',
+                                    ' hard to make out clearly.',
                        'artifacts': 'The artifacts are strange and foreign. One is a small, intricately carved stone that catches your eye. \n'
                                     'When you pick it up, a hidden mechanism clicks, and the stone shifts in your hand. Looks like some sort of puzzle to you.',
                        'Movements': ['South'],
@@ -233,7 +231,7 @@ gameState = {
             'Items': [],
             'Locked': True,
             'Unlocked_By': ['blood moon key'],
-            'Puzzle_Reward': ['eternity key']},
+            'Puzzle Reward': ['eternity key']},
 
         "Final_Exit": {
             'Description': 'As you turn the key and the ancient door creaks open, a wave of fresh air rushes in. You’ve triumphed over darkness and deception. '
@@ -258,7 +256,7 @@ keys = {'golden key': {'prev_room': 'Crypt',
                            'c_room': 'Hidden_Chamber'},
 
         'eternity key': {'prev_room': 'Hidden_Chamber',
-                         'c_room': 'Final_exit'},
+                         'c_room': 'Final_Exit'},
 
         'bronze key': {'prev_room': 'Armory',
                        'c_room': 'Servant_Quarters'}
@@ -285,7 +283,7 @@ ExaminableItems = {
 Items = {
     'feather': {
         'Use': 'You place the feather on the plate with the feather symbol. The plate sinks slightly into the floor with '
-               'a soft click. It seems you’ve chosen wisely, but the puzzle isn’t complete yet.',
+               'a soft click. It seems you’ve chosen wisely,\nbut the puzzle isn’t complete yet.',
         'Room': 'Dungeon'},
     'anvil': {
         'Use': 'The weight of the anvil causes the plate to sink heavily into the ground with a loud thud. The air feels tense, '
@@ -293,16 +291,15 @@ Items = {
         'Room': 'Dungeon'},
     'stone': {
         'Use': 'You place the stone on the plate marked with its symbol. The plate shifts slightly downward with a dull grinding '
-               'sound. You sense you’re on the right path, but the puzzle remains incomplete.',
+               'sound. You sense you’re on the right \npath, but the puzzle remains incomplete.',
         'Room': 'Dungeon'},
     'goblet': {
         'Use': 'As you place the goblet on the corresponding plate, it lowers smoothly into the floor with a metallic clink. '
-               'The tension in the air grows, as though something important is about to happen.',
+               'The tension in the air grows, \nas though something important is about to happen.',
         'Room': 'Dungeon'},
     'skull': {
         'Use': 'As you place the skull onto the last plate, it sinks down with a heavy thud. The room falls eerily silent for a '
-               'moment before a soft click echoes through the chamber. Suddenly, from a hidden compartment in the wall, something '
-               'shiny catches your eye',
+               'moment before a soft click echoes \nthrough the chamber.',
         'Room': 'Dungeon'},
     'lamp': {
         'Use': 'You light the old lamp, and a warm, flickering glow spreads through the room, illuminating its ancient secrets.',
@@ -362,12 +359,12 @@ def interactWithDragon():
             print(f"{lives} tries remaining.")
             answer = input("Enter the sequence (include spaces): ")
             if answer == sequence:
-                reward = gameState['rooms']['Hidden_Chamber']['Puzzle_Reward'][0]
+                reward = gameState['rooms']['Hidden_Chamber']['Puzzle Reward'][0]
                 print(
                     '\nDRAGON:\n"At last, a worthy soul. Your resolve and cunning have brought you here, beyond the reach of most."')
                 print(
                     "The dragon’s eyes glow with a hint of respect as the chamber’s heat cools.The dragon exhales a plume of smoke, revealing the "
-                    f"{reward}.")
+                    f"'{reward}'.")
                 gameState['rooms']['Hidden_Chamber']['Items'].append(reward)
                 print(
                     '\nDRAGON:\n"This is your passage to freedom. Go now, and let the castle\'s secrets rest... for now."')

@@ -8,7 +8,7 @@ RESET = "\033[0m"
 
 character = "Warrior"
 color = Menu.DEFAULT
-room = "Armory"
+room = "Entrance_Hall"
 current_room = m.gameState['rooms'][room]
 inventory = []
 
@@ -83,10 +83,6 @@ def move(command):
                 print(WHITE_BG+color+f"{character}!"+RESET+f", you have entered the {room}. ")
                 print(current_room['Description'])
                 found = True
-                if room == "Final_Exit":
-                    print("\nGame Over...")
-                    loadDefaultGame()
-                    menu()
             else:
                 if current_room['Locked']:
                     required_key = current_room['Unlocked_By'][0]  # this will check if the room is locked and will open by a specific key
@@ -100,10 +96,10 @@ def move(command):
 
 def look():
     print(current_room['Description'])
-    print("\nThe collectable items present in this room are : ")
     if len(current_room['Items']) == 0:
         print("No item to collect.")
     else:
+        print("\nThe collectable items present in this room are : ")
         for item in current_room['Items']:
             print(item)
     displayExits()
@@ -152,15 +148,16 @@ def solvePuzzle(key):
         answer = input("Enter your answer (type 'back' to go back): ").lower()
         if answer == "back":
             gameplay()
-        elif answer in riddle['Answer'].lower():
-            riddle['Solved'] = True
-            return True
         elif answer[0:3] == "use":
             if answer[4:] in inventory:
                 print(m.Items[answer[4:]]['Use'])
                 riddle['Solved'] = True
+                return True
             else:
                 print(f"{answer[4:]} not found in inventory. Type \"back\" to go back.")
+        elif answer in riddle['Answer'].lower():
+            riddle['Solved'] = True
+            return True
         else:
             denials = [
                 '\nYour answer echoes through the castle halls, but the silence that follows tells you it wasn\'t the right one.Try again.',
@@ -199,6 +196,11 @@ def useKey(item):
                         print(WHITE_BG+color+f"{character}!"+RESET+f" you have used the {item} to enter the {c_room}.")
                         room = c_room
                         current_room = m.gameState['rooms'][room]
+                        if room == "Final_Exit":
+                            print(current_room['Description'])
+                            print("\nGame Over...")
+                            loadDefaultGame()
+                            menu()
                     else:
                         print(f"The {item} does not matches with the key to unlock {c_room}.")
                 else:
