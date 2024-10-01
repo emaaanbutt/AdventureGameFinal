@@ -1,3 +1,5 @@
+import Map as m
+import Menu
 def menu():
     print("\n1. Start the Adventure")
     print("2. Customize Your Character")
