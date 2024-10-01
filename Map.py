@@ -4,7 +4,7 @@ gameState = {
     'rooms': {"Entrance_Hall": {
         'Description': 'As you step into the Entrance Hall, a gust of cold air greets you—either the castle is saying hello or '
                        "it’s just really, really old. \nThe torches flicker like they know something you don’t, and the shadows on the walls? "
-                       'Yeah, they’re probably up to no good. \nA pile of "feathers" welcome you in the hall.',
+                       'Yeah, they’re probably up to no good.',
         'Exits': ['Left_Corridor(West)', 'Right_Corridor(East)', 'Grand_Staircase(North)'],
         'Movements': ['West', 'East', 'North'],
         'Items': ['feathers'],
@@ -12,7 +12,7 @@ gameState = {
 
         "Left_Corridor": {
             'Description': 'Entering the left corridor, you feel a chill run down your spine—what secrets lie ahead in the darkness? '
-                           'Something feels wrong in this part of the castle. \nAn "anvil" is lying on the floor.',
+                           'Something feels wrong in this part of the castle. ',
             'Movements': ['East', 'West'],
             'Exits': ['Entrance_Hall(East)', 'Crypt(West)'],
             'Items': ['anvil'],
@@ -20,7 +20,7 @@ gameState = {
 
         "Right_Corridor": {'Description': 'The corridor feels damp, with faded tapestries hanging along '
                                           'the stone walls. The ground beneath your feet is uneven, and the sound of clanking metal echoes \n'
-                                          'faintly, coming from deeper within the castle. The passage seems to stretch into darkness. A "stone" is shining brightly among other stones.',
+                                          'faintly, coming from deeper within the castle. The passage seems to stretch into darkness. ',
                            'Movements': ['West', 'East', 'South'],
                            'Exits': ['Entrance_Hall(West)', 'Armory(East)', 'Dungeon(South)'],
                            'Items': ['stone'],
@@ -89,7 +89,7 @@ gameState = {
         "Grand_Staircase": {
             'Description': 'Before you lies the Grand Staircase, its imposing steps creaking beneath your feet like the '
                            'whispers of long-lost souls! Ascend if you dare, \nbut beware—the sound of your footsteps may awaken secrets '
-                           'best left undisturbed! A "skull" is placed at the last step.',
+                           'best left undisturbed!',
             'Movements': ['South', 'North'],
             'Exits': ['Entrance_Hall(South)', 'Grand_Ballroom(North)'],
             'Items': ['skull'],
@@ -133,9 +133,9 @@ gameState = {
                            }},
 
         "Servant_Quarters": {
-            'Description': 'As you enter the dimly lit servant quarters, you see an old "lamp" lying on the floor. '
-                           'A faint voice echoes from a dark corner.\nYou approach and notice a shadowy figure with no body, just a floating head — '
-                           'his name is "Bodyless." Enter "interact" to interact with this creature.',
+            'Description': 'As you enter the dimly lit servant quarters, a faint voice echoes from a dark corner. You approach '
+                           'and notice a shadowy figure with no body, just a floating head \n— his name is "Bodyless." '
+                           'Enter "interact" to interact with this creature.',
             'Movements': ['North', 'West'],
             'Exits': ['Armory(North)', 'Dungeon(West)'],
             'Items': ['lamp'],
@@ -153,7 +153,7 @@ gameState = {
 
         "Dungeon": {
             'Description': 'As you descend into the dungeon, a chill envelops you, and the air is thick with an earthy smell. '
-                           'The flickering torches cast dancing shadows along the stone walls. \nA "goblet" is placed in a corner wardrobe. '
+                           'The flickering torches cast dancing shadows along the stone walls. \n '
                            'Ahead, you see a dimly lit chamber where five pressure plates are arranged in a line, each etched with a '
                            'different symbol. \nMaybe some sort of puzzle...',
             'Movements': ['East', 'South', 'West'],
@@ -261,9 +261,9 @@ keys = {'golden key': {'prev_room': 'Crypt',
                          'c_room': 'Final_exit'},
 
         'bronze key': {'prev_room': 'Armory',
-                        'c_room': 'Servant_Quarters'}
+                       'c_room': 'Servant_Quarters'}
 
-                         }
+        }
 
 ExaminableItems = {
 

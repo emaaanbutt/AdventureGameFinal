@@ -31,8 +31,7 @@ def gameplay():
             print("Exiting game...")
             break
         elif command == "look":
-            print(current_room['Description'])
-            displayExits()
+            look()
         elif command[0:2] == "go":
             move(command[3:])
         elif command[0:7] == "examine":
@@ -102,6 +101,12 @@ def move(command):
         if not found:
             print("You attempt to move forward, but there's no way through, "+WHITE_BG+color+f"{character}!"+RESET+" You need to reconsider your direction.")
 
+def look():
+    print(current_room['Description'])
+    print("\nThe collectable items present in this room are : ")
+    for item in current_room['Items']:
+        print(item)
+    displayExits()
 
 def examine(command):
     item = command.lower()
@@ -234,38 +239,6 @@ def dropItem(curr_room, item):
         print(f"The {item} is not present in the inventory.")
 
 
-def menu():
-    print("\n1. Start the Adventure")
-    print("2. Customize Your Character")
-    print("3. Read the Backstory")
-    print("4. Instructions")
-    print("5. Load previous game")
-    print("6. Exit Game\n")
-    choice = int(input("Enter your choice : "))
-
-    global character, color
-    global room, inventory
-
-    if choice == 1:
-        gameplay()
-    elif choice == 2:
-        character, color = Menu.customizeCharacter()
-        menu()
-    elif choice == 3:
-        Menu.backstory()
-        menu()
-    elif choice == 4:
-        Menu.instructions()
-        menu()
-    elif choice == 5:
-        room, inventory, m.gameState = load_game()
-        gameplay()
-    elif choice == 6:
-        print("Exiting game....")
-        return 0
-    else:
-        print("Invalid choice.")
-        menu()
 
 def save_game():
     with open('savefile.txt', 'w') as file:
@@ -308,6 +281,40 @@ def defaultState():
 def loadDefaultGame():
     with open('defaultState.json', 'r') as file:
         m.gameState = json.load(file)
+
+
+def menu():
+    print("\n1. Start the Adventure")
+    print("2. Customize Your Character")
+    print("3. Read the Backstory")
+    print("4. Instructions")
+    print("5. Load previous game")
+    print("6. Exit Game\n")
+    choice = int(input("Enter your choice : "))
+
+    global character, color
+    global room, inventory
+
+    if choice == 1:
+        gameplay()
+    elif choice == 2:
+        character, color = Menu.customizeCharacter()
+        menu()
+    elif choice == 3:
+        Menu.backstory()
+        menu()
+    elif choice == 4:
+        Menu.instructions()
+        menu()
+    elif choice == 5:
+        room, inventory, m.gameState = load_game()
+        gameplay()
+    elif choice == 6:
+        print("Exiting game....")
+        return 0
+    else:
+        print("Invalid choice.")
+        menu()
 
 
 def main():
