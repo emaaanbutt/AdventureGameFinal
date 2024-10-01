@@ -198,6 +198,48 @@ def menu():
         print("Invalid choice.")
         menu()
 
+def save_game():
+    with open('savefile.txt', 'w') as file:
+        file.write(f"Room: {room}\n")
+        file.write(f"{inventory}\n")
+
+    with open('gameState.json', 'w') as file:
+        json.dump(m.gameState, file)
+
+    print("Game saved successfully.")
+
+
+def load_game():
+    global room, inventory
+    lineCounter = 0
+    try:
+        with open('savefile.txt', 'r') as file:
+            for line in file:
+                if lineCounter == 0:
+                    room = line.strip()[6:]
+                elif lineCounter == 1:
+                    inventory = line.strip()
+                lineCounter += 1
+
+        with open('gameState.json', 'r') as file:
+            m.gameState = json.load(file)
+
+        return room, inventory, m.gameState
+
+    except FileNotFoundError:
+        print("No saved game found. Starting a new game.")
+        gameplay()
+
+
+def defaultState():
+    with open('defaultState.json', 'w') as file:
+        json.dump(m.gameState, file)
+
+
+def loadDefaultGame():
+    with open('defaultState.json', 'r') as file:
+        m.gameState = json.load(file)
+
 
 def main():
     print("\nWelcome to the Mysterious Castle Adventure!\n")
