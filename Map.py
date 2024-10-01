@@ -7,7 +7,7 @@ gameState = {
                        'Yeah, they’re probably up to no good.',
         'Exits': ['Left_Corridor(West)', 'Right_Corridor(East)', 'Grand_Staircase(North)'],
         'Movements': ['West', 'East', 'North'],
-        'Items': ['feathers'],
+        'Items': ['feather'],
         'Locked': False},
 
         "Left_Corridor": {
@@ -153,7 +153,7 @@ gameState = {
 
         "Dungeon": {
             'Description': 'As you descend into the dungeon, a chill envelops you, and the air is thick with an earthy smell. '
-                           'The flickering torches cast dancing shadows along the stone walls. \n '
+                           'The flickering torches cast dancing shadows\n along the stone walls. '
                            'Ahead, you see a dimly lit chamber where five pressure plates are arranged in a line, each etched with a '
                            'different symbol. \nMaybe some sort of puzzle...',
             'Movements': ['East', 'South', 'West'],
@@ -267,7 +267,7 @@ keys = {'golden key': {'prev_room': 'Crypt',
 
 ExaminableItems = {
 
-    'feathers': 'These feathers might be useful in future. You might want to keep it in your inventory.',
+    'feather': 'This feather might be useful in future. You might want to keep it in your inventory.',
     'anvil': 'This anvil might be useful in future. You might want to keep it in your inventory.',
     'stone': 'This stone might be useful in future. You might want to keep it in your inventory.',
     'skull': 'This skull might be useful in future. You might want to keep it in your inventory.',
@@ -283,8 +283,8 @@ ExaminableItems = {
 }
 
 Items = {
-    'feathers': {
-        'Use': 'You place the feathers on the plate with the feather symbol. The plate sinks slightly into the floor with '
+    'feather': {
+        'Use': 'You place the feather on the plate with the feather symbol. The plate sinks slightly into the floor with '
                'a soft click. It seems you’ve chosen wisely, but the puzzle isn’t complete yet.',
         'Room': 'Dungeon'},
     'anvil': {
@@ -364,31 +364,31 @@ def interactWithDragon():
             if answer == sequence:
                 reward = gameState['rooms']['Hidden_Chamber']['Puzzle_Reward'][0]
                 print(
-                    'DRAGON:\n"At last, a worthy soul. Your resolve and cunning have brought you here, beyond the reach of most."')
+                    '\nDRAGON:\n"At last, a worthy soul. Your resolve and cunning have brought you here, beyond the reach of most."')
                 print(
                     "The dragon’s eyes glow with a hint of respect as the chamber’s heat cools.The dragon exhales a plume of smoke, revealing the "
                     f"{reward}.")
                 gameState['rooms']['Hidden_Chamber']['Items'].append(reward)
                 print(
-                    'DRAGON:\n"This is your passage to freedom. Go now, and let the castle\'s secrets rest... for now."')
+                    '\nDRAGON:\n"This is your passage to freedom. Go now, and let the castle\'s secrets rest... for now."')
 
                 break
             elif i == 0:
-                print("DRAGON:\n\"Foolish mortal, your memory fails you. The heat rises, and my patience wears thin.\""
+                print("\nDRAGON:\n\"Foolish mortal, your memory fails you. The heat rises, and my patience wears thin.\""
                       "\nThe ground trembles beneath you as the dragon’s anger stirs.")
                 lives -= 1
             elif i == 1:
                 print(
-                    "DRAGON:\n\"Still, you falter! My fury burns brighter. One more misstep and your journey will end here.\""
+                    "\nDRAGON:\n\"Still, you falter! My fury burns brighter. One more misstep and your journey will end here.\""
                     "\nThe walls quake violently, and the chamber swelters as flames lick the edges of the room.")
                 lives -= 1
             elif i == 2:
-                print("DRAGON:\n\"You have squandered your chances! Now, feel my wrath!\""
+                print("\nDRAGON:\n\"You have squandered your chances! Now, feel my wrath!\""
                       "\nA deafening roar shakes the room. The chamber plunges into darkness")
                 lives -= 1
         else:
             print(
-                'DRAGON:\n"Pathetic! You have failed me for the last time. Return to the start and come back only if you dare."')
+                '\nDRAGON:\n"Pathetic! You have failed me for the last time. Return to the start and come back only if you dare."')
             print("\n\nGAME OVER!!!")
 
 
@@ -398,7 +398,7 @@ def clear_screen():
 
 def interactWithBodyless():
     print(
-        "BODYLESS:\nAh, I see you’ve wandered far into the castle. Few have found me, and fewer have left with their minds intact. "
+        "\nBODYLESS:\nAh, I see you’ve wandered far into the castle. Few have found me, and fewer have left with their minds intact. "
         "\nTell me, adventurer, are you one who seeks answers or more puzzles to tangle your thoughts?")
     print('\n(Option 1): "I seek answers. Tell me who you are and what you want."'
           '\n(Option 2): "I enjoy a good challenge. What puzzle do you have for me?"')
@@ -407,10 +407,9 @@ def interactWithBodyless():
         choice = input("Choose your option : ").lower()
         if choice in "option 1":
             print(
-                'BODYLESS:\nAnswers? Oh, answers, I have many. I was once a servant of this castle. But long ago, I angered the wrong master, '
+                '\nBODYLESS:\nAnswers? Oh, answers, I have many. I was once a servant of this castle. But long ago, I angered the wrong master, '
                 'and my body was taken as punishment. \nNow, I remain only as this... a whisper in the shadows. He sighs.')
-            print(
-                'But since you want answers, listen closely. Somewhere in this room lies a key. But only those who are sharp of mind may claim it.')
+            print('But since you want answers, listen closely. Somewhere in this room lies a key. But only those who are sharp of mind may claim it.')
             print('\n(Option 1): "Tell me the riddle. I\'m ready."'
                   '\n(Option 2): "This is nonsense! I don\'t have time for games.')
             while True:
@@ -418,14 +417,14 @@ def interactWithBodyless():
                 if c1 in "option 1":
                     return True
                 elif c1 in "option 2":
-                    print("Ah! You stupid, useless creature. I hope you remain stuck within thee walls forever.")
+                    print("\nBODYLESS:\nAh! You stupid, useless creature. I hope you remain stuck within thee walls forever.")
                     return True
                 else:
                     print("Invalid option")
 
         elif choice in "option 2":
             print(
-                'BODYLESS:\nA challenge, is it? Very well, I respect your taste for riddles. My body is gone, but my mind remains '
+                '\nBODYLESS:\nA challenge, is it? Very well, I respect your taste for riddles. My body is gone, but my mind remains '
                 'sharp. Let me see if yours is too. \nYou want a reward, don’t you? You seek something that unlocks more than just doors.')
             print('Bodyless grins mischievously.')
             print('\n(Option 1): "Yes, give me the riddle!"'

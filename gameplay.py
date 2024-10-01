@@ -211,7 +211,7 @@ def useKey(item):
 
 def useItem(item):
     if item in m.Items.keys():
-        if m.Items[item]['Room'] == room:
+        if m.Items[item]['Room'] == room or m.Items[item]['Room'] == "any":
             print(m.Items[item]['Use'])
         else:
             print(WHITE_BG+color+f"{character}!"+RESET+f" This {item} seems to have lost its purpose in this place—try using it somewhere else!")
