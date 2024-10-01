@@ -66,7 +66,7 @@ gameState = {
                                   'There\'s a riddle carved onto the shield, \nwhich might unlock something valuable.',
                    'Movements': ['West', 'South'],
                    'Exits': ['Right_Corridor(West)', 'Servant_Quarters(South)'],
-                   'Items': [''],
+                   'Items': [],
                    'Puzzle Reward': ['bronze key'],
                    'Locked': False,
                    'Puzzle_Help': 'To unlock the secrets within, you must recall the powerful words you discovered in the library. Combine the letters '
