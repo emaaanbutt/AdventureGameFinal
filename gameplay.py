@@ -1,5 +1,170 @@
 import Map as m
 import Menu
+import json
+import random
+
+WHITE_BG = "\033[47m"
+RESET = "\033[0m"
+
+character = "Warrior"
+color = Menu.DEFAULT
+room = "Entrance_Hall"
+current_room = m.gameState['rooms'][room]
+inventory = []
+
+
+def gameplay():
+    global room
+    global current_room
+    global inventory
+
+    print("Welcome,"+WHITE_BG+color+f"{character}!"+RESET+" You've just stepped into the Mysterious Castle—where secrets lurk in every shadow "
+          "and puzzles await your cleverness. \nGet ready for a wild adventure filled with surprises and maybe a monster or two!\n")
+
+    print(WHITE_BG+color+f"{character}!"+RESET+f" you are in the {room}.")
+    print(current_room['Description'])
+
+    while True:
+        command = input("\nEnter command : ").lower()
+
+        if command == "quit":
+            print("Exiting game...")
+            break
+        elif command == "look":
+            print(current_room['Description'])
+            displayExits()
+        elif command[0:2] == "go":
+            move(command[3:])
+        elif command[0:7] == "examine":
+            examine(command[8:])
+        elif command[0:12] == "solve puzzle" or command[0:12] == "solve riddle":
+            displayPuzzle()
+        elif command == "interact" and room == 'Servant_Quarters':
+            if m.interactWithBodyless():
+                displayPuzzle()
+        elif command == "interact" and room == "Hidden_Chamber":
+            m.interactWithDragon()
+        elif command[0:9] == "inventory":
+            displayInventory()
+        elif command[0:4] == "take":
+            item = command[5:]
+            takeItem(current_room, item)
+        elif command[0:4] == "drop":
+            item = command[5:]
+            dropItem(current_room, item)
+        elif command[0:3] == "use":
+            item = command[4:]
+            if command[-3:] == 'key':
+                useKey(item)
+            else:
+                useItem(item)
+        elif command == "save":
+            print("Saving game...\n")
+            save_game()
+        elif command == "load":
+            room, inventory, m.gameState = load_game()
+            gameplay()
+        elif command == "help":
+            Menu.help()
+        elif command[0:3] == "use":
+            item = command[4:]
+            useItem(item)
+        else:
+            print("Invalid command.")
+
+
+def move(command):
+    global current_room
+    global room
+    availableMovements = current_room['Movements']
+    found = False
+    for i in range(len(availableMovements)):
+        if command.lower() == availableMovements[i].lower():
+            prev_room = room
+            room = current_room['Exits'][i].split('(')[0]
+            current_room = m.gameState['rooms'][room]
+            if not current_room['Locked']:
+                print(WHITE_BG+color+f"{character}!"+RESET+f", you have entered the {room}. ")
+                print(current_room['Description'])
+                found = True
+                if room == "Final_Exit":
+                    print("\nGame Over...")
+                    loadDefaultGame()
+                    menu()
+            else:
+                if current_room['Locked']:
+                    required_key = current_room['Unlocked_By'][0]  # this will check if the room is locked and will open by a specific key
+                    print(f"The door to the {room} is locked. You need to find the {required_key} hidden in another part of the castle to unlock it.")
+                    room = prev_room
+                    break
+
+    else:
+        if not found:
+            print("You attempt to move forward, but there's no way through, "+WHITE_BG+color+f"{character}!"+RESET+" You need to reconsider your direction.")
+
+
+def examine(command):
+    item = command.lower()
+    if item in current_room['Items'] or item in inventory:
+        print(m.ExaminableItems[item])
+    elif item in current_room.keys():
+        print(current_room[item])
+    else:
+        print(f"{item} is not examinable.")
+
+
+def displayExits():
+    print("\nThe exits are : ")
+    for i in current_room['Exits']:
+        print(i)
+
+
+def displayPuzzle():
+    if all(p['Solved'] for p in current_room['Puzzle'].values()):
+        print("It seems like you have already solved this puzzle. Move ahead...")
+        return
+    else:
+        print(current_room['Puzzle_Help'])
+        for key, value in current_room['Puzzle'].items():
+            riddle = current_room['Puzzle'][key]
+            if not riddle['Solved']:
+                print(riddle['Riddle'])
+                solvePuzzle(key)
+            elif riddle['Solved']:
+                continue
+
+        if all(p['Solved'] for p in current_room['Puzzle'].values()):
+            reward = current_room['Puzzle Reward'][0]
+            print("\nWell done "+WHITE_BG+color+f"{character}!"+RESET+f" The puzzle clicks into place, and a \"{reward}\" appears before you, "
+                  "cold and shimmering in the dim light.")
+            current_room['Items'].append(reward.lower())
+
+
+def solvePuzzle(key):
+    global inventory
+    while True:
+        riddle = current_room['Puzzle'][key]
+        answer = input("Enter your answer (type 'back' to go back): ").lower()
+        if answer == "back":
+            gameplay()
+        elif answer in riddle['Answer'].lower():
+            riddle['Solved'] = True
+            return True
+        elif answer[0:3] == "use":
+            if answer[4:] in inventory:
+                print(m.Items[answer[4:]]['Use'])
+                riddle['Solved'] = True
+            else:
+                print(f"{answer[4:]} not found in inventory. Type \"back\" to go back.")
+        else:
+            denials = [
+                '\nYour answer echoes through the castle halls, but the silence that follows tells you it wasn\'t the right one.Try again.',
+                '\nA shadow flickers across the room, as if the castle itself is shaking its head. Rethink your answer and try once more!',
+                '\nThe walls seem to sigh in disappointment as your answer fades away. Think carefully and try again!',
+                '\nYour answer falls flat like a castle ghost\'s joke—no laughs here! Dust yourself off and give it another whirl!']
+            message = random.choice(denials)
+            print(message)
+
 def menu():
     print("\n1. Start the Adventure")
     print("2. Customize Your Character")
