@@ -62,7 +62,7 @@ gameState = {
 
         "Armory": {'Description': 'Ancient suits of armor, now rusted and broken, line the walls. Broken '
                                   'weapons are strewn across the floor, and a heavy shield with an inscription \nstands upright at the '
-                                  'far end. The cold metal and sharp edges tell stories of forgotten battles.'
+                                  'far end.'
                                   'There\'s a riddle carved onto the shield, \nwhich might unlock something valuable.',
                    'Movements': ['West', 'South'],
                    'Exits': ['Right_Corridor(West)', 'Servant_Quarters(South)'],

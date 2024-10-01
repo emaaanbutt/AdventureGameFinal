@@ -8,7 +8,7 @@ RESET = "\033[0m"
 
 character = "Warrior"
 color = Menu.DEFAULT
-room = "Entrance_Hall"
+room = "Armory"
 current_room = m.gameState['rooms'][room]
 inventory = []
 
@@ -17,9 +17,6 @@ def gameplay():
     global room
     global current_room
     global inventory
-
-    print("Welcome,"+WHITE_BG+color+f"{character}!"+RESET+" You've just stepped into the Mysterious Castle—where secrets lurk in every shadow "
-          "and puzzles await your cleverness. \nGet ready for a wild adventure filled with surprises and maybe a monster or two!\n")
 
     print(WHITE_BG+color+f"{character}!"+RESET+f" you are in the {room}.")
     print(current_room['Description'])
@@ -104,8 +101,11 @@ def move(command):
 def look():
     print(current_room['Description'])
     print("\nThe collectable items present in this room are : ")
-    for item in current_room['Items']:
-        print(item)
+    if len(current_room['Items']) == 0:
+        print("No item to collect.")
+    else:
+        for item in current_room['Items']:
+            print(item)
     displayExits()
 
 def examine(command):
@@ -196,7 +196,9 @@ def useKey(item):
                 if rooms[c_room]['Locked']:
                     if rooms[c_room]['Unlocked_By'][0] == item:
                         rooms[c_room]['Locked'] = False
-                        print(WHITE_BG+color+f"{character}!"+RESET+f" you have used the {item} to unlock the door to the {c_room}.")
+                        print(WHITE_BG+color+f"{character}!"+RESET+f" you have used the {item} to enter the {c_room}.")
+                        room = c_room
+                        current_room = m.gameState['rooms'][room]
                     else:
                         print(f"The {item} does not matches with the key to unlock {c_room}.")
                 else:
@@ -296,6 +298,9 @@ def menu():
     global room, inventory
 
     if choice == 1:
+        print(
+            "Welcome," + WHITE_BG + color + f"{character}!" + RESET + " You've just stepped into the Mysterious Castle—where '"
+            "secrets lurk in every shadow and puzzles await your cleverness. \nGet ready for a wild adventure filled with surprises and maybe a monster or two!\n")
         gameplay()
     elif choice == 2:
         character, color = Menu.customizeCharacter()
